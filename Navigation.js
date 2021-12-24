@@ -17,9 +17,6 @@ import Profile from './screens/profile/Profile'
 import Favorite from './screens/favorite/Favorite'
 import Post from './screens/post/Post'
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-
 export default function RootNavigation() {
     const Stack = createStackNavigator()
     const Tab = createBottomTabNavigator()
@@ -66,7 +63,7 @@ export default function RootNavigation() {
                     name="Home Tab" 
                     component={Home}
                     options={{
-                        tabBarLabel: 'Home 111',
+                        headerShown: false,
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center', }}>
                                 <Image
@@ -87,7 +84,7 @@ export default function RootNavigation() {
                     name="Category Tab" 
                     component={Category}
                     options={{
-                        tabBarLabel: 'Category',
+                        headerShown: false,
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center', }}>
                                 <Image
@@ -107,6 +104,7 @@ export default function RootNavigation() {
                 <Tab.Screen 
                     name="Post" component={Post}
                     options={{
+                        headerShown: false,
                         tabBarIcon: ({focused}) => (
                             <Image
                                 source={require('./assets/images/icons/icon_plus.png')}
@@ -127,7 +125,7 @@ export default function RootNavigation() {
                     name="Favorite Tab" 
                     component={Favorite}
                     options={{
-                        tabBarLabel: 'Favorite',
+                        headerShown: false,
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center', }}>
                                 <Image
@@ -148,7 +146,7 @@ export default function RootNavigation() {
                     name="Profile Tab" 
                     component={Profile}
                     options={{
-                        tabBarLabel: 'Profile',
+                        headerShown: false,
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center', }}>
                                 <Image
