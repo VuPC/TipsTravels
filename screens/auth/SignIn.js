@@ -18,7 +18,7 @@ export default function SignIn({navigation}) {
             .then((userCredentials) => {
                 console.log('email: ', userCredentials.user.email);
                 AsyncStorage.setItem('isLogin', JSON.stringify(true));
-                navigation.navigate("Home");
+                navigation.navigate("HomeTabs");
             }).catch((error) => {
                 console.log(error.message);
                 console.log("Authentication failed");

@@ -26,6 +26,7 @@ export default function RootNavigation() {
 
     const CustomTabBarButton = ({ children, onPress }) => (
         <TouchableOpacity
+            activeOpacity={1}
             style={{
                 top: -40,
                 justifyContent: 'center',
@@ -38,7 +39,7 @@ export default function RootNavigation() {
                 width: 60,
                 height: 60,
                 borderRadius: 35,
-                backgroundColor: '#e32f45'
+                backgroundColor: '#F38000'
             }}>{children}</View>
         </TouchableOpacity>
     )
@@ -74,10 +75,10 @@ export default function RootNavigation() {
                                     style={{
                                         width: 25,
                                         height: 25,
-                                        tintColor: focused ? '#e32f45' : '#748c94'
+                                        tintColor: focused ? '#F38000' : '#748c94'
                                     }}
                                 />
-                                <Text style={{ color: focused ? '#e32f45' : '#748c94', fontSize: 12 }}>HOME</Text>
+                                <Text style={{ color: focused ? '#F38000' : '#748c94', fontSize: 12 }}>HOME</Text>
                             </View>
                         )
                     }}
@@ -95,10 +96,10 @@ export default function RootNavigation() {
                                     style={{
                                         width: 25,
                                         height: 25,
-                                        tintColor: focused ? '#e32f45' : '#748c94'
+                                        tintColor: focused ? '#F38000' : '#748c94'
                                     }}
                                 />
-                                <Text style={{ color: focused ? '#e32f45' : '#748c94', fontSize: 12 }}>CATEGORY</Text>
+                                <Text style={{ color: focused ? '#F38000' : '#748c94', fontSize: 12 }}>CATEGORY</Text>
                             </View>
                         )
                     }}
@@ -135,10 +136,10 @@ export default function RootNavigation() {
                                     style={{
                                         width: 25,
                                         height: 25,
-                                        tintColor: focused ? '#e32f45' : '#748c94'
+                                        tintColor: focused ? '#F38000' : '#748c94'
                                     }}
                                 />
-                                <Text style={{ color: focused ? '#e32f45' : '#748c94', fontSize: 12 }}>FAVORITE</Text>
+                                <Text style={{ color: focused ? '#F38000' : '#748c94', fontSize: 12 }}>FAVORITE</Text>
                             </View>
                         )
                     }}
@@ -156,10 +157,10 @@ export default function RootNavigation() {
                                     style={{
                                         width: 25,
                                         height: 25,
-                                        tintColor: focused ? '#e32f45' : '#748c94'
+                                        tintColor: focused ? '#F38000' : '#748c94'
                                     }}
                                 />
-                                <Text style={{ color: focused ? '#e32f45' : '#748c94', fontSize: 12 }}>PROFILE</Text>
+                                <Text style={{ color: focused ? '#F38000' : '#748c94', fontSize: 12 }}>PROFILE</Text>
                             </View>
                         )
                     }}
