@@ -5,14 +5,11 @@ import {
 } from 'react-native'
 
 import { SocialIcon } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import firebase from '../../firebase'
 
-export default function SignIn() {
-    const navigation = useNavigation();
-
+export default function SignIn({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

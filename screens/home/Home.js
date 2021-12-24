@@ -2,12 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 
 import firebase from '../../firebase'
-import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function Home() {
-    const navigation = useNavigation();
+export default function Home({navigation}) {
     const { isLogin, name } = useSelector(state => state.loginReducer.auth);
 
     const handleSignOut = () => {

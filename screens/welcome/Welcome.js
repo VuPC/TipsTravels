@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import CarouselCardItem, { viewportWidth } from './CarouselCardItem'
@@ -14,9 +13,7 @@ const data = [
     },
 ];
 
-export default function Welcome() {
-    const navigation = useNavigation();
-
+export default function Welcome({navigation}) {
     const [index, setIndex] = useState(0);
     const isCarousel  = useRef(null);
 

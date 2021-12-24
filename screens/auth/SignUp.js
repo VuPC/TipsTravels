@@ -5,11 +5,8 @@ import {
 } from 'react-native'
 
 import firebase from '../../firebase'
-import { useNavigation } from '@react-navigation/native'
 
-export default function SignUp() {
-    const navigation = useNavigation();
-
+export default function SignUp({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

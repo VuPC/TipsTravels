@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function Lauch() {
-    const navigation = useNavigation();
-
+export default function Lauch({navigation}) {
+    
     useEffect(() => {
         setTimeout(() => {
             (async () => {
@@ -16,7 +14,7 @@ export default function Lauch() {
                             await AsyncStorage.getItem('isLogin', function (err, value) {
                                 var isLogin = JSON.parse(value);
                                 if (isLogin) {
-                                    navigation.navigate("Home");
+                                    navigation.navigate("HomeTabs");
                                 } else {
                                     navigation.navigate("SignIn");
                                 }
