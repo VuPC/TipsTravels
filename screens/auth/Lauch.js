@@ -1,10 +1,20 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import firebase from '../../firebase'
 
 export default function Lauch({navigation}) {
     
     useEffect(() => {
+        // firebase.auth().onAuthStateChanged((user) => {
+        //     console.log('user: ',user)
+        //     if (user) {
+        //         console.log('user uid: ', user.uid)
+        //     } else {
+        //         console.log('user is signed out')
+        //     }
+        // })
+
         setTimeout(() => {
             (async () => {
                 await AsyncStorage.getItem('isGetStart', function (err, value) {
@@ -25,7 +35,7 @@ export default function Lauch({navigation}) {
                     }
                 })
             })();
-            }, 3000)
+        }, 3000)
     }, [])
 
     return (

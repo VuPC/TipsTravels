@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Dimensions, Image } from 'react-native'
 
-import Carousel from 'react-native-snap-carousel'
 export const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
 
 const CarouselCardItem = ({ item }) => {

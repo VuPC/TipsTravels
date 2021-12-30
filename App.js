@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { 
-  StyleSheet, Text, View,
+  StyleSheet,
   SafeAreaView, Platform, StatusBar
 } from 'react-native'
 

@@ -16,6 +16,7 @@ export default function SignIn({navigation}) {
     const handleSignIn = () => {
         firebase.auth().signInWithEmailAndPassword(email.trim(), password)
             .then((userCredentials) => {
+                console.log('user: ', userCredentials.user);
                 console.log('email: ', userCredentials.user.email);
                 AsyncStorage.setItem('isLogin', JSON.stringify(true));
                 navigation.navigate("HomeTabs");

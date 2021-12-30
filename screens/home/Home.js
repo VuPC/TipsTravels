@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
-import { 
-    StyleSheet, Text, View, TouchableOpacity,
-    TextInput, Image
-} from 'react-native'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View } from 'react-native'
 import firebase from '../../firebase'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Icon from 'react-native-vector-icons/FontAwesome5'
 import Timeline from './components/Timeline'
+import Header from '../components/Header'
+import DrawHome from './components/DrawHome'
+import CustomModal from './components/CustomModal'
+import CircularProgress from '../components/CircularProgress'
 
 export default function Home({navigation}) {
-    const { isLogin, name } = useSelector(state => state.loginReducer.auth)
-    const [search, setSearch] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const [listPopular, setListPopular] = useState([])
+    const [listExplore, setListExplore] = useState([])
+    const [listCategories, setListCategories] = useState([])
+    const [isShowDraw, setIsShowDraw] = useState(false)
+    const [isShowModal, setIsShowModal] = useState(false)
+
+    const getValueSearch = (search) => {
+        console.log('Home: ',search)
+    }
 
     const handleSignOut = () => {
         firebase.auth().signOut().then(() => {
@@ -23,91 +30,80 @@ export default function Home({navigation}) {
         })
     }
 
+    const getPopularData = async () => {
+        let listArrPopular = []
+        await firebase.firestore().collection('home-popular').get().then((querySnapshot) => {
+            querySnapshot.forEach(snapshot => {
+                let data = snapshot.data()
+                listArrPopular.push(data["list-data"])
+            })
+        })
+        setListPopular(listArrPopular)
+    }
+    
+    const getExploreData = async () => {
+        let listArrExplore = []
+        await firebase.firestore().collection('home-explore').get().then((querySnapshot) => {
+            querySnapshot.forEach(snapshot => {
+                let data = snapshot.data()
+                listArrExplore.push(data["list-data"])
+            })
+        })
+        setListExplore(listArrExplore)
+    }
+
+    const getCategoriesData = async () => {
+        let listArrCategories = []
+        await firebase.firestore().collection('home-categories').get().then((querySnapshot) => {
+            querySnapshot.forEach(snapshot => {
+                let data = snapshot.data()
+                listArrCategories.push(data["list-data"])
+            })
+        })
+        setListCategories(listArrCategories)
+    }
+
+    const handleDrawHome = (title) => {
+        console.log(title)
+        if(title != '') {
+            if(title == 'LogOut') {
+                setIsShowModal(true)
+            } else {
+                console.log('Go to Screen: ',title)
+                setIsShowDraw(!isShowDraw)
+            }
+        } else {
+            setIsShowDraw(!isShowDraw)
+        }
+    }
+
+    const handleButton = (val,key) => {
+        setIsShowModal(key)
+        if(val == 'cancel') {
+            console.log('cancel')
+        } else {
+            console.log('yes')
+            handleSignOut()
+        }
+    }
+
+    useEffect(() => {
+        getPopularData()
+        getExploreData()
+        getCategoriesData()
+
+        setTimeout(() => {
+            setIsLoading(true)
+        }, 1000)
+    }, [])
+
     return (
         <View style={styles.container}>
-            <View style={{ paddingHorizontal: 20 }}>
-                <View style={styles.menu}>
-                    <TouchableOpacity
-                        style={{
-                            position: 'absolute',
-                            left: 0,
-                        }}
-                        activeOpacity={1}
-                        onPress={() => console.log('aa')}
-                    >
-                        <Image
-                            style={{
-                                tintColor: '#F38000',
-                                resizeMode: "contain",
-                                height: 30,
-                                width: 30
-                            }}
-                            source={require('../../assets/images/icons/icon_hamburger.png')}
-                            resizeMode="contain"
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.titleHeader}>Home</Text>
-                </View>
-                <View style={{ justifyContent: 'center' }}>
-                    <Image
-                        style={{
-                            tintColor: '#F38000',
-                            resizeMode: "contain",
-                            height: 25,
-                            width: 25,
-                            position: 'absolute',
-                            left: 14,
-                            zIndex: 10,
-                        }}
-                        source={require('../../assets/images/icons/icon_search.png')}
-                        resizeMode="contain"
-                    />
-                    <TextInput
-                        style={styles.inputSearch}
-                        placeholder="Search"
-                        onChangeText={(search) => setSearch(search)}
-                    />
-                </View>
-            </View>
-
-            <View
-                style={{
-                    borderBottomColor: '#EDEDED',
-                    borderBottomWidth: 1,
-                    marginVertical: 15,
-                }}
-            />
-
-            <TouchableOpacity
-                activeOpacity={1}
-                onPress={() => console.log('post')}
-                style={{
-                    paddingHorizontal: 20, 
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}
-            >
-                <Text style={{
-                    fontSize: 18,
-                    fontWeight: 'bold'
-                }}>Show post</Text>
-                <Icon name="arrow-right" size={25} color="#F38000" 
-                    style={{
-                        position: 'absolute',
-                        right: 20
-                    }}
-                />
-            </TouchableOpacity>
-
-            <View
-                style={{
-                    borderBottomColor: '#EDEDED',
-                    borderBottomWidth: 1,
-                    marginTop: 15,
-                }}
-            />
-
-            <Timeline />
+            <Header name="Home" getValueSearch={getValueSearch} showDrawHome={handleDrawHome} />
+            <Timeline listPopular={listPopular} listExplore={listExplore} listCategories={listCategories} />
+            { !isLoading ? <CircularProgress /> : <></> }
+            { isShowDraw ? <DrawHome handleDrawHome={handleDrawHome} /> : <></> }
+            { isShowModal ? <CustomModal isShowModal={isShowModal} handleButton={handleButton} /> : <></> }
         </View>
     )
 }
@@ -116,25 +112,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
-        paddingTop: 30,
-    },
-    menu: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    titleHeader: {
-        color: '#F38000',
-        fontSize: 26,
-        fontWeight: 'bold',
-    },
-    inputSearch: {
-        backgroundColor: '#EDEDED',
-        padding: 10,
-        fontSize: 18,
-        borderRadius: 8,
-        paddingLeft: 50,
-        color: '#BCBCBC'
+        paddingTop: 30
     }
 })

@@ -16,6 +16,7 @@ import Category from './screens/category/Category'
 import Profile from './screens/profile/Profile'
 import Favorite from './screens/favorite/Favorite'
 import Post from './screens/post/Post'
+import PopularDestination from './screens/home/PopularDestination'
 
 export default function RootNavigation() {
     const Stack = createStackNavigator()
@@ -48,7 +49,7 @@ export default function RootNavigation() {
                     tabBarShowLabel: false,
                     tabBarStyle: {
                         position: 'absolute',
-                        bottom: 25,
+                        bottom: 16,
                         left: 20,
                         right: 20,
                         elevation: 0,
@@ -175,6 +176,7 @@ export default function RootNavigation() {
                     <Stack.Screen name="Welcome" component={Welcome} />
                     <Stack.Screen name="SignIn" component={SignIn} />
                     <Stack.Screen name="SignUp" component={SignUp} />
+                    <Stack.Screen name="PopularDestination" component={PopularDestination} />
                     <Stack.Screen name="HomeTabs" component={HomeTabs} />
                 </Stack.Navigator>
             </NavigationContainer>
@@ -184,13 +186,13 @@ export default function RootNavigation() {
 
 const styles = StyleSheet.create({
     shadow: {
-        shadowColor: '#7F5DF0',
+        shadowColor: '#F38000',
         shadowOffset: {
             width: 0,
             height: 10
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.5,
-        elevation: 5
+        elevation: 5,
     }
 })
